@@ -32,14 +32,22 @@ class ShopifyAppGenerator < Rails::Generators::Base
   end
 
   def add_bootstrap_gem
+    # Add bootstrap
     gem 'bootstrap-sass', '3.1.1'
     gem 'sass-rails', '~> 5.0'
+
+    # For Slack notifications
     gem 'rest_client'
+
+    # For better console
     gem 'wirble'
     gem 'hirb'
+
     gem_group :assets do
       gem 'therubyracer', :platforms => :ruby
     end
+
+    # Production for Heroku
     gem_group :production do
       gem 'pg'
       gem 'rails_12factor'
@@ -60,7 +68,7 @@ class ShopifyAppGenerator < Rails::Generators::Base
 
   def display_readme
     Bundler.with_clean_env do
-      run 'bundle install'
+      run 'bundle install --without production'
     end
 
     readme '../README'
