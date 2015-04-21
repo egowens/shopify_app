@@ -32,9 +32,17 @@ class ShopifyAppGenerator < Rails::Generators::Base
   end
 
   def add_bootstrap_gem
-    gem_group :development, :test do
-      gem "less-rails-bootstrap"
+    gem 'bootstrap-sass', '3.1.1'
+    gem 'sass-rails', '~> 5.0'
+    gem 'rest_client'
+    gem 'wirble'
+    gem 'hirb'
+    gem_group :assets do
       gem 'therubyracer', :platforms => :ruby
+    end
+    gem_group :production do
+      gem 'pg'
+      gem 'rails_12factor'
     end
   end
 
@@ -47,8 +55,6 @@ class ShopifyAppGenerator < Rails::Generators::Base
       route_without_newline "  post 'login' => :create"
       route_without_newline "  get 'login' => :new"
       route_without_newline "controller :sessions do"
-      route "get 'design' => 'home#design'"
-      route_without_newline "get 'welcome' => 'home#welcome'"
     end
   end
 
